@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking History</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { background: #18191c; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; }
+        .history-card {
+            background: #23252b;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+        }
+        .history-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            color: #ff7a1a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.7rem 0.5rem;
+            text-align: left;
+        }
+        th {
+            color: #7fdfff;
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+        }
+        tr:nth-child(even) { background: #23252b; }
+        tr:nth-child(odd) { background: #202124; }
+        td { color: #fff; }
+        .no-history {
+            color: #ff7a1a;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-card">
+        <div class="history-title">Movie Booking History</div>
+        {% if bookings|length == 0 %}
+            <div class="no-history">No bookings found.</div>
+        {% else %}
+        <table>
+            <tr>
+                <th>Movie</th>
+                <th>Seats</th>
+                <th>Date</th>
+                <th>Cost</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.movie_id }}</td>
+                <td>{{ booking.seats }}</td>
+                <td>{{ booking.date if booking.date else 'N/A' }}</td>
+                <td>₹{{ booking.cost }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html> 

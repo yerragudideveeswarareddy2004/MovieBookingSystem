@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan & Pay - PhonePe</title>
+    <style>
+        body { background: #18191c; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; }
+        .qr-container {
+            max-width: 400px;
+            margin: 3rem auto;
+            background: #111;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px #0008;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+        .qr-container img {
+            width: 220px;
+            height: 220px;
+            margin: 1.2rem 0;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .qr-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a78bfa;
+            margin-bottom: 0.5rem;
+        }
+        .qr-accept {
+            color: #a78bfa;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .qr-name {
+            margin-top: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <div class="qr-title"><img src="/static/phonepe_qr.jpg" alt="PhonePe QR"></div>
+        <div class="qr-accept">ACCEPTED HERE</div>
+        <div>Scan & Pay Using PhonePe App</div>
+        <div class="qr-name">YERRAGUDI DEVEESWARA REDDY</div>
+        <div class="payment-buttons">
+            <a href="#" id="proceed-btn" class="btn accent">Proceed to Next Step</a>
+            <a href="/" class="btn close-btn">Close</a>
+        </div>
+    </div>
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">Are you done with the payment?</div>
+            <div class="modal-actions">
+                <a href="/receipt/{{ booking_id }}" class="btn accent">Yes</a>
+                <button class="btn close-btn" id="modal-no">No</button>
+            </div>
+        </div>
+    </div>
+    <style>
+    .payment-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    .btn.accent {
+        background: #ff7a1a;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        border: none;
+        padding: 0.8rem 2.2rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px #0002;
+    }
+    .btn.accent:hover {
+        background: #ff9800;
+    }
+    .btn.close-btn {
+        background: #23252b;
+        color: #fff;
+        border: 1.5px solid #444;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 0.8rem 2.2rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+    .btn.close-btn:hover {
+        background: #333;
+        color: #ff7a1a;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.6);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background: #23252b;
+        border-radius: 12px;
+        padding: 2rem 2.5rem;
+        text-align: center;
+        box-shadow: 0 4px 24px #0008;
+    }
+    .modal-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #ff7a1a;
+        margin-bottom: 1.2rem;
+    }
+    .modal-actions {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+    </style>
+    <script>
+    document.getElementById('proceed-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('confirm-modal').style.display = 'flex';
+    });
+    document.getElementById('modal-no').addEventListener('click', function() {
+        document.getElementById('confirm-modal').style.display = 'none';
+    });
+    </script>
+</body>
+</html> 

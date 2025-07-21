@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Profile</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { background: #18191c; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; }
+        .profile-card {
+            background: #23252b;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 420px;
+            margin: 3rem auto;
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .profile-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            color: #ff7a1a;
+        }
+        .profile-detail {
+            margin-bottom: 1.1rem;
+        }
+        .profile-detail label {
+            font-weight: bold;
+            color: #7fdfff;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .profile-detail span {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .profile-welcome {
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 1.2rem;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <form method="POST" style="width:100%;">
+            <div class="profile-title">About Me</div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+            <div class="profile-detail">
+                <label for="username">My Name:</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <div class="profile-detail">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" value="{{ user.age if user.age else '' }}">
+            </div>
+            <div class="profile-detail">
+                <label for="phone">Mobile Number:</label>
+                <input type="text" id="phone" name="phone" value="{{ user.phone if user.phone else '' }}">
+            </div>
+            <div class="profile-detail">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="profile-detail">
+                <label for="living">Living in:</label>
+                <input type="text" id="living" name="living" value="{{ user.living if user.living else '' }}">
+            </div>
+            <div style="display: flex; justify-content: flex-end; width: 100%;">
+                <button type="submit" class="btn accent" style="margin-top: 1.2rem;">Save</button>
+            </div>
+            <div class="profile-welcome">Welcome to the movie booking system!</div>
+        </form>
+    </div>
+    <style>
+    .profile-card input[type="text"],
+    .profile-card input[type="number"],
+    .profile-card input[type="email"] {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1.5px solid #333;
+        background: #f7fafd;
+        color: #222;
+        font-size: 1rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+    }
+    .profile-card input:focus {
+        border-color: #ff7a1a;
+        outline: none;
+    }
+    .flashes {
+        margin: 0 0 1rem 0;
+        padding: 0;
+        list-style: none;
+    }
+    .flashes li.success {
+        color: #4caf50;
+        font-weight: bold;
+    }
+    .flashes li.danger {
+        color: #ff3b3f;
+        font-weight: bold;
+    }
+    </style>
+</body>
+</html> 

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Receipt</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { background: #18191c; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; }
+        .receipt-card {
+            background: #23252b;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 420px;
+            margin: 3rem auto;
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .receipt-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            color: #ff7a1a;
+        }
+        .receipt-detail {
+            width: 100%;
+            margin-bottom: 1.1rem;
+        }
+        .receipt-detail label {
+            font-weight: bold;
+            color: #7fdfff;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .receipt-detail span {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .receipt-movie-img {
+            width: 100%;
+            max-width: 260px;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px #0008;
+        }
+        .receipt-success {
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+        .receipt-btn {
+            background: #ff7a1a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .receipt-btn:hover {
+            background: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-card">
+        <div class="receipt-title">Booking Receipt</div>
+        {% if movie and booking %}
+            <img src="{{ movie.image_url }}" alt="{{ movie.title }}" class="receipt-movie-img">
+            <div class="receipt-success">Your booking is confirmed!</div>
+            <div class="receipt-detail"><label>Movie:</label> <span>{{ movie.title }}</span></div>
+            <div class="receipt-detail"><label>Theatre:</label> <span>{{ movie.theatre }}</span></div>
+            <div class="receipt-detail"><label>Area:</label> <span>{{ movie.area }}</span></div>
+            <div class="receipt-detail"><label>Name:</label> <span>{{ booking.name }}</span></div>
+            <div class="receipt-detail"><label>Phone:</label> <span>{{ booking.phone }}</span></div>
+            <div class="receipt-detail"><label>Email:</label> <span>{{ booking.email }}</span></div>
+            <div class="receipt-detail"><label>Seats:</label> <span>{{ booking.seats }}</span></div>
+            <div class="receipt-detail"><label>Date:</label> <span>{{ booking.date }}</span></div>
+            <div class="receipt-detail"><label>Total Cost:</label> <span>₹{{ booking.cost }}</span></div>
+            <button class="receipt-btn" onclick="window.print()">Print Receipt</button>
+        {% else %}
+            <div class="receipt-success">No booking found.</div>
+        {% endif %}
+    </div>
+</body>
+</html> 

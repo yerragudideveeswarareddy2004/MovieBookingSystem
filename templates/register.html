@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVASPOT - Sign Up</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="light-bg">
+    <div class="signup-card">
+        <div class="signup-header">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Signup Header" class="signup-header-img">
+            <h2 class="signup-title">SIGN UP</h2>
+        </div>
+        <form class="signup-form" method="POST" action="/register">
+            <div class="signup-row">
+                <input type="text" name="firstname" placeholder="Firstname">
+                <input type="text" name="lastname" placeholder="Lastname">
+            </div>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Example@gmail.com" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div class="signup-btn-row">
+                <button class="btn signup-btn" type="submit">Sign Up</button>
+                <button class="btn reset-btn" type="reset">Reset</button>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+            <div class="signup-social">
+                <span>SIGN UP WITH SOCIAL MEDIA :</span>
+                <div class="social-btns">
+                    <button class="btn social-btn fb-btn" type="button" disabled>f</button>
+                    <button class="btn social-btn google-btn" type="button" disabled>G+</button>
+                </div>
+            </div>
+        </form>
+        <a href="/login" class="btn accent" style="margin: 1.2rem auto 0 auto; display: block; width: 90%; text-align: center;">Login</a>
+        <p class="signup-footer">Made with <span style="color:#ff7a1a;">♥</span> by DEVASPOT</p>
+    </div>
+</body>
+</html> 

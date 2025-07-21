@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVASPOT - Movie Booking</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="logo">DEVA<span>SPOT</span></div>
+        <ul class="nav-links">
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/booking">Book Ticket</a></li>
+        </ul>
+        {% if session.get('username') %}
+            <div class="user-avatar-dropdown">
+                <div class="user-avatar" id="avatar-btn">{{ session['username'][0]|upper }}</div>
+                <div class="dropdown-menu" id="avatar-dropdown">
+                    <a href="/profile">About Me</a>
+                    <a href="/history">Movie Booking History</a>
+                    <a href="/logout">Sign Out</a>
+                </div>
+            </div>
+        {% else %}
+            <a href="/register" class="btn accent">Sign Up</a>
+        {% endif %}
+    </nav>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Book your ticket at friday night and Enjoy the Vibe</h1>
+            <p>Discover the latest releases and reserve your seats in seconds. Experience cinema the way it's meant to be.</p>
+            <a href="/booking" class="btn accent">Browse Movies</a>
+        </div>
+    </header>
+    <section class="movies-section">
+        <h2>Now Showing</h2>
+        <form id="movie-search-form" class="movie-search-bar" method="GET" action="/">
+            <input type="text" name="q" placeholder="Search by movie name, language, genre, actor..." autocomplete="off">
+            <button type="submit" class="btn accent">Search</button>
+        </form>
+        <div class="movies-grid">
+            {% if movies|length == 0 %}
+                <div class="no-movies-found">No movies found.</div>
+            {% else %}
+                {% for movie in movies %}
+                <div class="movie-card">
+                    <img src="{{ movie.image_url }}" alt="{{ movie.title }}">
+                    <div class="movie-info">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.theatre }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <style>
+        .no-movies-found {
+            color: #ff7a1a;
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 2rem 0;
+            width: 100%;
+        }
+        </style>
+    </section>
+    <footer class="footer">
+        <p>&copy; 2024 DEVASPOT. All rights reserved.</p>
+    </footer>
+    <style>
+    .movie-search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+        gap: 0.5rem;
+        background: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0;
+    }
+    .movie-search-bar input[type="text"] {
+        width: 320px;
+        padding: 0.7rem 1rem;
+        border-radius: 6px;
+        border: 1.5px solid #333;
+        font-size: 1rem;
+        background: #23252b;
+        color: #fff;
+        outline: none;
+        transition: border 0.2s;
+    }
+    .movie-search-bar input[type="text"]:focus {
+        border-color: #ff7a1a;
+    }
+    .movie-search-bar .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+        border-radius: 6px;
+        margin-left: 0.3rem;
+    }
+    .user-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: #ff7a1a;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.3rem;
+        border-radius: 50%;
+        margin-left: 1rem;
+        box-shadow: 0 2px 8px #0002;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .user-avatar-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .user-avatar {
+        cursor: pointer;
+    }
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 110%;
+        background: #23252b;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px #0005;
+        min-width: 180px;
+        z-index: 100;
+        padding: 0.5rem 0;
+    }
+    .dropdown-menu a {
+        display: block;
+        color: #fff;
+        padding: 0.7rem 1.2rem;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background 0.2s;
+    }
+    .dropdown-menu a:hover {
+        background: #ff7a1a;
+        color: #fff;
+    }
+    .user-avatar-dropdown.open .dropdown-menu {
+        display: block;
+    }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const avatarBtn = document.getElementById('avatar-btn');
+        const dropdown = document.getElementById('avatar-dropdown');
+        if (avatarBtn && dropdown) {
+            const wrapper = avatarBtn.parentElement;
+            avatarBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                wrapper.classList.toggle('open');
+            });
+            document.addEventListener('click', function() {
+                wrapper.classList.remove('open');
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

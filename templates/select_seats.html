@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVASPOT - Select Seats</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .select-seats-card {
+            background: linear-gradient(135deg, #23252b 80%, #7fdfff 100%);
+            max-width: 420px;
+            margin: 3rem auto 2rem auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            border: 2.5px solid #111;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+        }
+        .select-seats-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0;
+            margin-bottom: 1rem;
+        }
+        .select-seats-card h2 {
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+        .select-seats-card .theatre {
+            color: #ff7a1a;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+        .select-seats-card .area {
+            color: #7fdfff;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .select-seats-form {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .select-seats-form label {
+            color: #fff;
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.2rem;
+            text-align: left;
+        }
+        .select-seats-form input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid #111;
+            border-radius: 0;
+            background: #f8fafc;
+            color: #222;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .select-seats-form .btn {
+            width: 100%;
+            margin-top: 1.2rem;
+        }
+        .flashes {
+            margin: 1rem 0 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .flashes li.success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        .flashes li.danger {
+            color: #ff3b3f;
+            font-weight: bold;
+        }
+        .movie-banner {
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto 0 auto;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .movie-banner img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .select-seats-card {
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            border: 2.5px solid #111;
+            border-top: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+            background: linear-gradient(135deg, #23252b 80%, #7fdfff 100%);
+        }
+        .seat-map-section {
+            flex: 1 1 0;
+            background: #111;
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            color: #fff;
+            min-width: 320px;
+            max-width: 420px;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        #seat-map {
+            display: grid;
+            grid-template-columns: repeat(12, 28px);
+            gap: 8px;
+            justify-content: center;
+            margin: 1.2rem 0 1.2rem 0;
+        }
+        .seat {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            display: inline-block;
+            cursor: pointer;
+            border: 2px solid #222;
+            background: #444;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 2px #0008;
+        }
+        .seat.diamond { background: #e6c200; }
+        .seat.gold { background: #c0c0c0; }
+        .seat.silver { background: #7fdfff; }
+        .seat.selected { background: #4caf50 !important; border-color: #fff; }
+        .seat-legend {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+        .seat-legend .seat {
+            margin-right: 0.3rem;
+            vertical-align: middle;
+        }
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            width: 100%;
+        }
+        .form-group {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+        }
+        @media (max-width: 700px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+        .modern-form {
+            background: #18191c;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+            max-width: 420px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .modern-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .modern-form .form-label {
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+        }
+        .modern-form input[type="text"],
+        .modern-form input[type="email"],
+        .modern-form input[type="tel"],
+        .modern-form input[type="date"],
+        .modern-form input[type="number"] {
+            background: #23252b;
+            color: #fff;
+            border: 1.5px solid #333;
+            border-radius: 6px;
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .modern-form input:focus {
+            border-color: #ff7a1a;
+            box-shadow: 0 0 0 2px #ff7a1a33;
+        }
+        .modern-btn {
+            width: 100%;
+            background: #ff7a1a;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            padding: 0.9rem 0;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 0.7rem;
+            transition: background 0.2s;
+        }
+        .modern-btn:hover {
+            background: #ff9800;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="logo">DEVA<span>SPOT</span></div>
+        <ul class="nav-links">
+            <li><a href="/" >Home</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/booking">Book Ticket</a></li>
+        </ul>
+        <a href="/register" class="btn accent">Sign Up</a>
+    </nav>
+    <div class="movie-banner">
+        <img src="{{ movie.image_url }}" alt="{{ movie.title }}">
+    </div>
+    <div class="select-seats-card dark-form">
+        <h2 class="form-title">{{ movie.title }}</h2>
+        <div class="theatre">{{ movie.theatre }}</div>
+        <div class="area">{{ movie.area }}</div>
+        <div class="select-seats-flex">
+            <form class="select-seats-form modern-form" method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" name="name" id="name" required placeholder="Enter your full name" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" name="phone" id="phone" required placeholder="e.g. 9876543210" pattern="[0-9]{10}" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" name="email" id="email" required placeholder="e.g. user@email.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="date" class="form-label">Date of Booking</label>
+                    <input type="date" name="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="seats" class="form-label">Selected Seats</label>
+                    <input type="text" name="seats" id="seats" readonly placeholder="Click seats on right">
+                </div>
+                <div class="form-group">
+                    <label for="cost" class="form-label">Total Cost</label>
+                    <input type="number" name="cost" id="cost" readonly placeholder="Total cost">
+                </div>
+                <button class="btn accent modern-btn" type="submit">Book Now</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    <ul class="flashes">
+                    {% for category, message in messages %}
+                      <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+            </form>
+            <div class="seat-map-section">
+                <div class="ticket-section-title">Select Your Seats</div>
+                <div id="seat-map"></div>
+                <div class="seat-legend">
+                    <span class="seat diamond"></span> Diamond (₹300)
+                    <span class="seat gold"></span> Gold (₹250)
+                    <span class="seat silver"></span> Silver (₹200)
+                    <span class="seat selected"></span> Selected
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 DEVASPOT. All rights reserved.</p>
+    </footer>
+    <script>
+    // Seat map config
+    const rows = 7; // A-G
+    const cols = 12; // 1-12
+    const seatTypes = [
+        { type: 'diamond', price: 300, rows: ['A','B'] },
+        { type: 'gold', price: 250, rows: ['C','D','E'] },
+        { type: 'silver', price: 200, rows: ['F','G'] }
+    ];
+    const seatMapDiv = document.getElementById('seat-map');
+    const seatInput = document.getElementById('seats');
+    const costInput = document.getElementById('cost');
+    let selectedSeats = [];
+    let totalCost = 0;
+    // Generate seat map
+    function getSeatType(row) {
+        for (const t of seatTypes) if (t.rows.includes(row)) return t;
+        return seatTypes[2];
+    }
+    function renderSeatMap() {
+        let html = '';
+        for (let r = 0; r < rows; r++) {
+            const rowLetter = String.fromCharCode(65 + r);
+            for (let c = 1; c <= cols; c++) {
+                const seatId = rowLetter + c;
+                const type = getSeatType(rowLetter);
+                html += `<div class="seat ${type.type}" data-seat="${seatId}" data-type="${type.type}" data-price="${type.price}">${c}</div>`;
+            }
+        }
+        seatMapDiv.innerHTML = html;
+        // Add click listeners
+        seatMapDiv.querySelectorAll('.seat').forEach(seat => {
+            seat.addEventListener('click', function() {
+                const seatId = this.getAttribute('data-seat');
+                const price = parseInt(this.getAttribute('data-price'));
+                if (this.classList.contains('selected')) {
+                    this.classList.remove('selected');
+                    selectedSeats = selectedSeats.filter(s => s.id !== seatId);
+                } else {
+                    this.classList.add('selected');
+                    selectedSeats.push({ id: seatId, price });
+                }
+                updateBookingFields();
+            });
+        });
+    }
+    function updateBookingFields() {
+        seatInput.value = selectedSeats.map(s => s.id).join(', ');
+        totalCost = selectedSeats.reduce((sum, s) => sum + s.price, 0);
+        costInput.value = totalCost;
+    }
+    renderSeatMap();
+    </script>
+</body>
+</html> 

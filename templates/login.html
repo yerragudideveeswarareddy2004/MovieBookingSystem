@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVASPOT - Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+    <div class="split-container">
+        <div class="split-left">
+            <img src="/static/cinema_assets.jpg" alt="Cinema Assets" class="poster-img">
+        </div>
+        <div class="split-right">
+            <form class="login-card" method="POST" action="/login">
+                <h2>Welcome back,</h2>
+                <p class="subtitle">Sign in to your account</p>
+                <label>Username</label>
+                <input type="text" name="username" required placeholder="Enter your username">
+                <label>Password</label>
+                <div class="password-field">
+                    <input type="password" name="password" required placeholder="Enter your password">
+                    <span class="toggle-password" title="Show/Hide Password">&#128065;</span>
+                </div>
+                <div class="login-links">
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <button class="btn accent" type="submit">Sign In</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    <ul class="flashes">
+                    {% for category, message in messages %}
+                      <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+                <p class="form-link">Don't have an account? <a href="/register">Sign up</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 
